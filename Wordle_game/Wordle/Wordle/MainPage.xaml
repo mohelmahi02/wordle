@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Wordle.MainPage"
+            >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!-- Style for label -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+            </Style>
+
+            <!-- Style for frame of grid -->
+            <Style x:Key="GridFrame" TargetType="Frame">
+                <Setter Property="BorderColor" Value="LightGray"/>
+                <Setter Property="Padding" Value="14,14" />
+                <Setter Property="WidthRequest" Value="65"/>
+                <Setter Property="HeightRequest" Value="80"/>
+            </Style>
+
+             <!--Style for keyboard button--> 
+            <Style x:Key="KeyButton" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#212121" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="BorderColor" Value="LightGray"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="WidthRequest" Value="35"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="Padding" Value="4" />
+
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <Grid RowDefinitions="*, Auto"
+          Padding="8,12,8,12"
+          BackgroundColor="#1c0a28">
+
+       
+        <!-- Grid boxes -->
+        <VerticalStackLayout
+            Spacing="8"
+            BindableLayout.ItemsSource="{Binding Rows}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate >
+                    <HorizontalStackLayout 
+                        Spacing="8"
+                        HorizontalOptions="Center"
+                        BindableLayout.ItemsSource="{Binding Boxes}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate >
+                                <Frame Style="{StaticResource GridFrame}"
+                                       BackgroundColor="{Binding Colour, FallbackValue=Black}"
+                                       HeightRequest="70"
+                                       WidthRequest="60">
+                                    <Label Text="{Binding Input}"
+                                           FontFamily="Bold"
+                                           FontSize="24"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+
+        </VerticalStackLayout>
+
+        <!--Keyboard -->
+        <VerticalStackLayout Grid.Row="1" Spacing="4">
+            <!-- ROW 1-->
+            <HorizontalStackLayout 
+                        Spacing="2"
+                        HorizontalOptions="Center"
+                        BindableLayout.ItemsSource="{Binding KeyRow1}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Button Style="{StaticResource KeyButton}"
+                                Text="{Binding .}"
+                                BackgroundColor="white" 
+                                TextColor="Black"
+                                CommandParameter="{Binding .}" Clicked="Button_Clicked"
+                                />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+
+            <!-- ROW 2-->
+            <HorizontalStackLayout 
+                        Spacing="2"
+                        HorizontalOptions="Center"
+                        BindableLayout.ItemsSource="{Binding KeyRow2}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Button Style="{StaticResource KeyButton}"
+                                Text="{Binding .}"
+                                BackgroundColor="white"
+                                TextColor="Black" CommandParameter="{Binding .}" Clicked="Button_Clicked"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+
+            <!-- ROW 3-->
+            <HorizontalStackLayout 
+                        Spacing="4"
+                        HorizontalOptions="Center"
+                        BindableLayout.ItemsSource="{Binding KeyRow3}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Button Style="{DynamicResource KeyButton}"
+                                Text="{Binding .}"
+                                BackgroundColor="white"
+                                TextColor="Black" CommandParameter="{Binding .}" Clicked="Button_Clicked"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
